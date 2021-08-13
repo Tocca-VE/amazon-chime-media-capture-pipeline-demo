@@ -31,14 +31,11 @@ exports.handler = async (event, context) => {
         return response
     } else {
         const meetingId = body.meetingId
-        const organizationId = body.organizationId
-        const eventId = body.eventId
-        const roomId = body.roomId
         const captureRequest = {
             "SourceType": "ChimeSdkMeeting",
             "SourceArn": "arn:aws:chime::" + aws_account_id + ":meeting:" + meetingId,
             "SinkType": "S3Bucket",
-            "SinkArn": "arn:aws:s3:::" + mediaCaptureBucket + "/captures/" + organizationId + "/" + eventId + "/" + roomId + "/" + meetingId,
+            "SinkArn": "arn:aws:s3:::" + mediaCaptureBucket + "/captures/" + meetingId,
         }
         try {
             const captureInfo = await chime.createMediaCapturePipeline(captureRequest).promise()
